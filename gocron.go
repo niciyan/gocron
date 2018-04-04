@@ -20,6 +20,7 @@ package gocron
 
 import (
 	"errors"
+	"log"
 	"reflect"
 	"runtime"
 	"sort"
@@ -114,7 +115,7 @@ func getFunctionName(fn interface{}) string {
 func (j *Job) Do(jobFun interface{}, params ...interface{}) {
 	typ := reflect.TypeOf(jobFun)
 	if typ.Kind() != reflect.Func {
-		panic("only function can be schedule into the job queue.")
+		log.Fatal("only function can be schedule into the job queue.")
 	}
 
 	fname := getFunctionName(jobFun)
@@ -154,7 +155,7 @@ func formatTime(t string) (hour, min int, err error) {
 func (j *Job) At(t string) *Job {
 	hour, min, err := formatTime(t)
 	if err != nil {
-		panic(err)
+		log.Fatal(err)
 	}
 
 	// time.Date(2009, time.November, 10, 23, 0, 0, 0, time.UTC)
@@ -229,7 +230,7 @@ func (j *Job) NextScheduledTime() time.Time {
 // Set the unit with second
 func (j *Job) Second() (job *Job) {
 	if j.interval != 1 {
-		panic("")
+		log.Fatal("Second func allows only '1' for parameter.")
 	}
 	job = j.Seconds()
 	return
@@ -244,7 +245,7 @@ func (j *Job) Seconds() (job *Job) {
 // Set the unit  with minute, which interval is 1
 func (j *Job) Minute() (job *Job) {
 	if j.interval != 1 {
-		panic("")
+		log.Fatal("'Minute func allows only '1' for parameter'")
 	}
 	job = j.Minutes()
 	return
@@ -259,7 +260,7 @@ func (j *Job) Minutes() (job *Job) {
 //set the unit with hour, which interval is 1
 func (j *Job) Hour() (job *Job) {
 	if j.interval != 1 {
-		panic("")
+		log.Fatal("'Hour' func allows only '1' for parameter.")
 	}
 	job = j.Hours()
 	return
@@ -274,7 +275,7 @@ func (j *Job) Hours() (job *Job) {
 // Set the job's unit with day, which interval is 1
 func (j *Job) Day() (job *Job) {
 	if j.interval != 1 {
-		panic("")
+		log.Fatal("'Day' func allows only '1' for parameter.")
 	}
 	job = j.Days()
 	return
@@ -290,7 +291,7 @@ func (j *Job) Days() *Job {
 // Set the start day with Monday
 func (j *Job) Monday() (job *Job) {
 	if j.interval != 1 {
-		panic("")
+		log.Fatal("'Monday' func allows only '1' for parameter.")
 	}
 	j.startDay = 1
 	job = j.Weeks()
@@ -300,7 +301,7 @@ func (j *Job) Monday() (job *Job) {
 // Set the start day with Tuesday
 func (j *Job) Tuesday() (job *Job) {
 	if j.interval != 1 {
-		panic("")
+		log.Fatal("'Tuesday' func allows only '1' for parameter.")
 	}
 	j.startDay = 2
 	job = j.Weeks()
@@ -310,7 +311,7 @@ func (j *Job) Tuesday() (job *Job) {
 // Set the start day woth Wednesday
 func (j *Job) Wednesday() (job *Job) {
 	if j.interval != 1 {
-		panic("")
+		log.Fatal("'Wednesday' func allows only '1' for parameter.")
 	}
 	j.startDay = 3
 	job = j.Weeks()
@@ -320,7 +321,7 @@ func (j *Job) Wednesday() (job *Job) {
 // Set the start day with thursday
 func (j *Job) Thursday() (job *Job) {
 	if j.interval != 1 {
-		panic("")
+		log.Fatal("'Thursday' func allows only '1' for parameter.")
 	}
 	j.startDay = 4
 	job = j.Weeks()
@@ -330,7 +331,7 @@ func (j *Job) Thursday() (job *Job) {
 // Set the start day with friday
 func (j *Job) Friday() (job *Job) {
 	if j.interval != 1 {
-		panic("")
+		log.Fatal("'Friday' func allows only '1' for parameter.")
 	}
 	j.startDay = 5
 	job = j.Weeks()
@@ -340,7 +341,7 @@ func (j *Job) Friday() (job *Job) {
 // Set the start day with saturday
 func (j *Job) Saturday() (job *Job) {
 	if j.interval != 1 {
-		panic("")
+		log.Fatal("'Saturday' func allows only '1' for parameter.")
 	}
 	j.startDay = 6
 	job = j.Weeks()
@@ -350,7 +351,7 @@ func (j *Job) Saturday() (job *Job) {
 // Set the start day with sunday
 func (j *Job) Sunday() (job *Job) {
 	if j.interval != 1 {
-		panic("")
+		log.Fatal("'Sunday' func allows only '1' for parameter.")
 	}
 	j.startDay = 0
 	job = j.Weeks()
